@@ -9,19 +9,9 @@ const form = document.querySelector("form");
 const firstName = document.querySelector("#first");
 const lastName = document.querySelector("#last");
 
-
-/** Regex **/
-/* regex for first and last name
- * numbers not authorized
- * hyphen and apostrophe authorized
- * french characters authorized
- * minimum of 2 characters - maximum of 20 characters
- */
-
-const regexName = /^[a-zA-ZÀ-ÿ]+(([-' ,][a-zA-ZÀ-ÿ ])?[a-zA-ZÀ-ÿ]*){2,20}$/;
-
 // validation function
 function validate() {
+
     /** First Name Validation **/
     const firstNameValue = firstName.value;
     // check if the input value is empty
@@ -59,6 +49,29 @@ function validate() {
         // remove the error message
         lastName.parentElement.setAttribute('data-error-visible', 'false');
     }
+
+    /** Email Validation **/
+    const email = document.querySelector("#email");
+    const emailValue = email.value;
+    // check if the input value is empty
+    if (emailValue === "") {
+        // add an error message
+        email.parentElement.setAttribute('data-error-visible', 'true');
+        email.parentElement.setAttribute('data-error', 'Veuillez entrer votre adresse email.');
+    }
+    // check if the input value is valid
+    else if (regexEmail.test(emailValue) === false) {
+        // add an error message
+        email.parentElement.setAttribute('data-error-visible', 'true');
+        email.parentElement.setAttribute('data-error', 'Veuillez entrer un format valide.');
+    }
+    else {
+        // remove the error message
+        email.parentElement.setAttribute('data-error-visible', 'false');
+    }
+
+
+
 }
 
 
