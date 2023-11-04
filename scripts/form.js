@@ -9,6 +9,8 @@ const firstName = document.querySelector("#first");
 const lastName = document.querySelector("#last");
 const birthdate = document.querySelector("#birthdate");
 const quantity = document.querySelector("#quantity");
+const locations = document.querySelectorAll("input[name='location']");
+
 
 let isValid = true;
 
@@ -117,6 +119,32 @@ function validate() {
     else {
         // remove the error message
         quantity.parentElement.setAttribute('data-error-visible', 'false');
+    }
+
+
+    /** Location Validation **/
+
+    let locationChecked = false;
+    let locationValue = "";
+    // check if at least one location is checked
+    for (let i = 0; i < locations.length; i++) {
+        if (locations[i].checked) {
+            locationChecked = true;
+            locationValue = locations[i].value;
+            break;
+        }
+    }
+    alert(locationValue);
+
+    // check if the input value is empty
+    if (locationChecked === false) {
+        document.querySelector("#location1").parentElement.setAttribute('data-error-visible', 'true');
+        document.querySelector("#location1").parentElement.setAttribute('data-error', 'Veuillez choisir une ville.');
+        isValid = false;
+    }
+    else {
+        // remove the error message
+        document.querySelector("#location1").parentElement.setAttribute('data-error-visible', 'false');
     }
 }
 
