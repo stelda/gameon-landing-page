@@ -10,6 +10,7 @@ const lastName = document.querySelector("#last");
 const birthdate = document.querySelector("#birthdate");
 const quantity = document.querySelector("#quantity");
 const locations = document.querySelectorAll("input[name='location']");
+const termsOfUse = document.querySelector("#checkbox1");
 
 
 let isValid = true;
@@ -134,7 +135,6 @@ function validate() {
             break;
         }
     }
-    alert(locationValue);
 
     // check if the input value is empty
     if (locationChecked === false) {
@@ -146,12 +146,26 @@ function validate() {
         // remove the error message
         document.querySelector("#location1").parentElement.setAttribute('data-error-visible', 'false');
     }
+
+    /** Terms of use Validation **/
+
+    if (termsOfUse.checked === false) {
+        // add an error message
+        termsOfUse.parentElement.setAttribute('data-error-visible', 'true');
+        termsOfUse.parentElement.setAttribute('data-error', 'Veuillez accepter les conditions d\'utilisation.');
+        isValid = false;
+    }
+    else {
+        // remove the error message
+        termsOfUse.parentElement.setAttribute('data-error-visible', 'false');
+    }
 }
 
+
 /** Event **/
+
 form.addEventListener("submit", (event) => {
     event.preventDefault(); // prevent the form from submitting
-
     if (isValid === true) {
         alert ("Merci ! Votre réservation a été reçue.");
     }
