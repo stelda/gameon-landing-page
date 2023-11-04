@@ -33,7 +33,6 @@ const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
  * 30 days in April, June, September and November
  * 31 days in January, March, May, July, August, October and December
  */
-
 function isValidBirthdate(input) {
 
     const regexBirthdate= /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19\d\d|20[01]\d|2021)$/;
@@ -64,7 +63,9 @@ function isValidBirthdate(input) {
     }
 }
 
-
-
+/* regex for number of tournaments
+ * only numbers from 0 to 99 authorized
+ */
+const regexTournaments = /^[0-9]{1,2}$/;
 
 

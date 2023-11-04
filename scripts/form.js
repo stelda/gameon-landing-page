@@ -8,14 +8,12 @@ const form = document.querySelector("form");
 const firstName = document.querySelector("#first");
 const lastName = document.querySelector("#last");
 const birthdate = document.querySelector("#birthdate");
-
+const quantity = document.querySelector("#quantity");
 
 let isValid = true;
 
 // validation function
 function validate() {
-
-
 
     /** First Name Validation **/
     const firstNameValue = firstName.value;
@@ -104,8 +102,23 @@ function validate() {
         // remove the error message
         birthdate.parentElement.setAttribute('data-error-visible', 'false');
     }
-}
 
+
+    /** Number of tournaments Validation **/
+
+    const quantityValue = quantity.value;
+    // check if the input value is empty
+    if (quantityValue === "" || regexTournaments.test(quantityValue) === false) {
+        // add an error message
+        quantity.parentElement.setAttribute('data-error-visible', 'true');
+        quantity.parentElement.setAttribute('data-error', 'Veuillez entrer un nombre entre 0 et 99.');
+        isValid = false;
+    }
+    else {
+        // remove the error message
+        quantity.parentElement.setAttribute('data-error-visible', 'false');
+    }
+}
 
 /** Event **/
 form.addEventListener("submit", (event) => {
