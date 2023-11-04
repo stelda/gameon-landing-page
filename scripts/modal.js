@@ -1,5 +1,5 @@
 /**
- * opening and closing the modal
+ * This script handles the opening and closing of the modal window
  */
 
 /** Variables **/

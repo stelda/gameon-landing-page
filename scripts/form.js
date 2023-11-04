@@ -1,5 +1,5 @@
 /**
- * handle form validation
+ * This script handle the form validation
  */
 
 /** DOM Elements **/
@@ -62,7 +62,7 @@ function validate() {
     }
 
     /** Email Validation **/
-    const email = document.querySelector("#email");
+
     const emailValue = email.value;
     // check if the input value is empty
     if (emailValue === "") {
