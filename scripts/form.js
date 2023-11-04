@@ -7,6 +7,7 @@
 const form = document.querySelector("form");
 const firstName = document.querySelector("#first");
 const lastName = document.querySelector("#last");
+const email = document.querySelector("#email");
 const birthdate = document.querySelector("#birthdate");
 const quantity = document.querySelector("#quantity");
 const locations = document.querySelectorAll("input[name='location']");
@@ -62,7 +63,6 @@ function validate() {
     }
 
     /** Email Validation **/
-
     const emailValue = email.value;
     // check if the input value is empty
     if (emailValue === "") {
