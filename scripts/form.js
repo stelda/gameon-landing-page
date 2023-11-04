@@ -1,8 +1,10 @@
 /**
+ * 4.0
+ * form.js
  * This script handle the form validation
  */
 
-/** DOM Elements **/
+/** 4.1 - DOM Elements **/
 
 const form = document.querySelector("form");
 const firstName = document.querySelector("#first");
@@ -13,161 +15,191 @@ const quantity = document.querySelector("#quantity");
 const locations = document.querySelectorAll("input[name='location']");
 const termsOfUse = document.querySelector("#checkbox1");
 
+/**
+ * 4.2 - Function that validates a name input
+ * @param {string} name - The name to validate.
+ * @returns {boolean} - True if the name is valid, false otherwise.
+ */
+function isValidName(name) {
+    return regexName.test(name);
+}
 
-let isValid = true;
+/**
+ * 4.3 - Function that validates an email input
+ * @param {string} email - The email to validate.
+ * @returns {boolean} - True if the email is valid, false otherwise.
+ */
+function isValidEmail(email) {
+    return regexEmail.test(email);
+}
 
-// validation function
-function validate() {
-
-    /** First Name Validation **/
-    const firstNameValue = firstName.value;
-
-    // check if the input value is empty
-    if (firstNameValue === "") {
-        // add an error message
-        firstName.parentElement.setAttribute('data-error-visible', 'true');
-        firstName.parentElement.setAttribute('data-error', 'Veuillez entrer 2 caractères ou plus pour le champ du prénom.');
-        isValid = false;
+/**
+ * 4.4 - Function that validates a birthdate input
+ * @param {string} birthdate - The birthdate to validate.
+ * @returns {boolean} - True if the birthdate is valid, false otherwise.
+ */
+function isValidBirthdate(birthdate) {
+    if (!regexBirthdate.test(birthdate)) {
+        return false;
     }
-    // check if the input value is valid
-    else if (regexName.test(firstNameValue) === false) {
-        // add an error message
-        firstName.parentElement.setAttribute('data-error-visible', 'true');
-        firstName.parentElement.setAttribute('data-error', 'Veuillez entrer un format valide.');
-        isValid = false;
-    }
-    else {
-        // remove the error message
-        firstName.parentElement.setAttribute('data-error-visible', 'false');
-    }
-
-    /** Last Name Validation **/
-    const lastNameValue = lastName.value;
-    // check if the input value is empty
-    if (lastNameValue === "") {
-        // add an error message
-        lastName.parentElement.setAttribute('data-error-visible', 'true');
-        lastName.parentElement.setAttribute('data-error', 'Veuillez entrer 2 caractères ou plus pour le champ du nom.');
-        isValid = false;
-    }
-    // check if the input value is valid
-    else if (regexName.test(lastNameValue) === false) {
-        // add an error message
-        lastName.parentElement.setAttribute('data-error-visible', 'true');
-        lastName.parentElement.setAttribute('data-error', 'Veuillez entrer un format valide.');
-        isValid = false;
-    }
-    else {
-        // remove the error message
-        lastName.parentElement.setAttribute('data-error-visible', 'false');
-    }
-
-    /** Email Validation **/
-    const emailValue = email.value;
-    // check if the input value is empty
-    if (emailValue === "") {
-        // add an error message
-        email.parentElement.setAttribute('data-error-visible', 'true');
-        email.parentElement.setAttribute('data-error', 'Veuillez entrer votre adresse email.');
-        isValid = false;
-    }
-    // check if the input value is valid
-    else if (regexEmail.test(emailValue) === false) {
-        // add an error message
-        email.parentElement.setAttribute('data-error-visible', 'true');
-        email.parentElement.setAttribute('data-error', 'Veuillez entrer un format valide.');
-        isValid = false;
-    }
-    else {
-        // remove the error message
-        email.parentElement.setAttribute('data-error-visible', 'false');
-
-    }
-
-    /** Birthdate Validation **/
-    const birthdateValue = birthdate.value;
-    // check if the input value is empty
-    if (birthdateValue === "") {
-        // add an error message
-        birthdate.parentElement.setAttribute('data-error-visible', 'true');
-        birthdate.parentElement.setAttribute('data-error', 'Veuillez entrer votre date de naissance.');
-        isValid = false;
-
-    }
-    // check if the input value is valid
-    else if (isValidBirthdate(birthdateValue) === false) {
-        // add an error message
-        birthdate.parentElement.setAttribute('data-error-visible', 'true');
-        birthdate.parentElement.setAttribute('data-error', 'Veuillez entrer une date valide au format JJ/MM/AAAA.');
-        isValid = false;
-    }
-    else {
-        // remove the error message
-        birthdate.parentElement.setAttribute('data-error-visible', 'false');
-    }
-
-
-    /** Number of tournaments Validation **/
-
-    const quantityValue = quantity.value;
-    // check if the input value is empty
-    if (quantityValue === "" || regexTournaments.test(quantityValue) === false) {
-        // add an error message
-        quantity.parentElement.setAttribute('data-error-visible', 'true');
-        quantity.parentElement.setAttribute('data-error', 'Veuillez entrer un nombre entre 0 et 99.');
-        isValid = false;
-    }
-    else {
-        // remove the error message
-        quantity.parentElement.setAttribute('data-error-visible', 'false');
-    }
-
-
-    /** Location Validation **/
-
-    let locationChecked = false;
-    let locationValue = "";
-    // check if at least one location is checked
-    for (let i = 0; i < locations.length; i++) {
-        if (locations[i].checked) {
-            locationChecked = true;
-            locationValue = locations[i].value;
-            break;
+    const [day, month, year] = birthdate.split('/').map(Number);
+    // for February, check if the year is a leap year
+    if (month === 2) {
+        if ((year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0)) {
+            if (day > 29) {
+                return false;
+            }
+        } else {
+            if (day > 28) {
+                return false;
+            }
         }
     }
-
-    // check if the input value is empty
-    if (locationChecked === false) {
-        document.querySelector("#location1").parentElement.setAttribute('data-error-visible', 'true');
-        document.querySelector("#location1").parentElement.setAttribute('data-error', 'Veuillez choisir une ville.');
-        isValid = false;
-    }
+    // for months with 30 days
     else {
-        // remove the error message
-        document.querySelector("#location1").parentElement.setAttribute('data-error-visible', 'false');
+        const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+        if (day > daysInMonth[month - 1]) {
+            return false;
+        }
     }
+    return true;
+}
 
-    /** Terms of use Validation **/
+/**
+ * 4.5 - Function that validates a number of tournaments
+ * @param {string} quantity - quantity of tournaments to validate.
+ * @returns {boolean} - True if the number of tournaments is valid, false otherwise.
+ */
+function isValidQuantity(quantity) {
+    return regexNumberOfTournaments.test(quantity);
+}
 
-    if (termsOfUse.checked === false) {
-        // add an error message
-        termsOfUse.parentElement.setAttribute('data-error-visible', 'true');
-        termsOfUse.parentElement.setAttribute('data-error', 'Veuillez accepter les conditions d\'utilisation.');
+/**
+ * 4.6 - Function that validates if any location is checked
+ * @param {NodeList} locations - The list of location inputs.
+ * @returns {boolean} - True if at least one location is checked, false otherwise.
+ */
+function isValidLocation(locations) {
+    for (let i = 0; i < locations.length; i++) {
+        if (locations[i].checked) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * 4.7 - Function that validates if the terms of use are checked
+ * @param {boolean} termsOfUse - The terms of use checkbox.
+ * @returns {boolean} - True if the terms of use checkbox is checked, false otherwise.
+ */
+function isValidTermsOfUse(termsOfUse) {
+    return termsOfUse.checked;
+}
+
+/**
+ * 4.8 - Updates the UI to show an error message.
+ * @param {HTMLElement} element - The element whose parent will be updated.
+ * @param {string} message - The error message.
+ */
+function showError(element, message) {
+    element.parentElement.setAttribute('data-error-visible', 'true');
+    element.parentElement.setAttribute('data-error', message);
+}
+
+/**
+ * 4.9 - Updates the UI to remove an error message.
+ * @param {HTMLElement} element - The element whose parent will be updated.
+ */
+function hideError(element) {
+    element.parentElement.setAttribute('data-error-visible', 'false');
+}
+
+/**
+ * 4.10 - Main validation function that uses the individual validation functions to check all inputs
+ * @returns {boolean} - True if the entire form is valid, false otherwise.
+ */
+function validateForm() {
+    let isValid = true;
+
+    const firstNameValue = firstName.value;
+    const lastNameValue = lastName.value;
+    const emailValue = email.value;
+    const birthdateValue = birthdate.value;
+    const quantityValue = quantity.value;
+
+    // Validate first name
+    if (!isValidName(firstNameValue)) {
+        showError(firstName, "Veuillez entrer 2 caractères ou plus pour le champ du prénom.");
         isValid = false;
+    } else {
+        hideError(firstName);
     }
-    else {
-        // remove the error message
-        termsOfUse.parentElement.setAttribute('data-error-visible', 'false');
+
+    // Validate last name
+    if (!isValidName(lastNameValue)) {
+        showError(lastName, "Veuillez entrer 2 caractères ou plus pour le champ du nom.");
+        isValid = false;
+    } else {
+        hideError(lastName);
+    }
+
+    // Validate email
+    if (!isValidEmail(emailValue)) {
+        showError(email, "Veuillez entrer votre adresse email.");
+        isValid = false;
+    } else {
+        hideError(email);
+    }
+
+    // Validate birthdate
+    if (!isValidBirthdate(birthdateValue)) {
+        showError(birthdate, "Veuillez entrer une date de naissance valide.");
+        isValid = false;
+    } else {
+        hideError(birthdate);
+    }
+
+    // Validate tournaments
+    if (!isValidQuantity(quantityValue)) {
+        showError(quantity, "Veuillez entrer un nombre entre 0 et 99.");
+        isValid = false;
+    } else {
+        hideError(quantity);
+    }
+
+    // Validate location
+    if (!isValidLocation(locations)) {
+        showError(document.querySelector("#location1"), "Veuillez choisir une ville.");
+        isValid = false;
+    } else {
+        hideError(document.querySelector("#location1"));
+    }
+
+    // Validate terms of use
+    if (!isValidTermsOfUse(termsOfUse)) {
+        showError(termsOfUse, "Veuillez accepter les conditions d'utilisation.");
+        isValid = false;
+    } else {
+        hideError(termsOfUse);
+    }
+    return isValid;
+}
+
+/**
+ * 4.11 - Event Handler : Handles the form submission event.
+ * @param {Event} event - The submit event.
+ */
+function handleFormSubmit(event) {
+    event.preventDefault(); // Prevent the form from submitting
+    const isFormValid = validateForm();
+    if (isFormValid) {
+        alert("Merci ! Votre réservation a été reçue.");
     }
 }
 
-
-/** Event **/
-
-form.addEventListener("submit", (event) => {
-    event.preventDefault(); // prevent the form from submitting
-    if (isValid === true) {
-        alert ("Merci ! Votre réservation a été reçue.");
-    }
-});
-
+/**
+ * 4.12 - Event listener for form submission.
+ */
+form.addEventListener("submit", handleFormSubmit);
