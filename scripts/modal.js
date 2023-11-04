@@ -1,8 +1,10 @@
 /**
+ * 2.0
+ * modal.js
  * This script handles the opening and closing of the modal window
  */
 
-/** Variables **/
+/** 2.1 - Variables **/
 // DOM Elements
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
@@ -10,7 +12,7 @@ const formData = document.querySelectorAll(".formData");
 const modalClose = document.querySelector(".close");
 
 
-/** Functions **/
+/** 2.2 - Functions **/
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
@@ -22,7 +24,7 @@ function closeModal() {
 }
 
 
-/** Events **/
+/** 2.3 - Events **/
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 

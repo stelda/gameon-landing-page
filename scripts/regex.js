@@ -1,8 +1,10 @@
 /**
- * Regular expressions
+ * 3.0
+ * regex.js
+ * This script contains all the regular expressions used in the form validation
  */
 
-/* regex for first and last name
+/* 3.1 - regex for first and last name
  * numbers not authorized
  * hyphen, space and apostrophe authorized
  * french characters authorized
@@ -33,39 +35,12 @@ const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
  * 30 days in April, June, September and November
  * 31 days in January, March, May, July, August, October and December
  */
-function isValidBirthdate(input) {
+const regexBirthdate= /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19\d\d|20[01]\d|2021)$/;
 
-    const regexBirthdate= /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19\d\d|20[01]\d|2021)$/;
-
-    if (!regexBirthdate.test(input)) {
-        return false;
-    }
-
-    const [day, month, year] = input.split('/').map(Number);
-
-    // for February, check if the year is a leap year
-    if (month === 2) {
-        if ((year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0)) {
-            if (day > 29) {
-                return false;
-            }
-        } else {
-            if (day > 28) {
-                return false;
-            }
-        }
-    } else {
-        const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-        if (day > daysInMonth[month - 1]) {
-            return false;
-        }
-    }
-}
 
 /* regex for number of tournaments
  * only numbers from 0 to 99 authorized
  */
-const regexTournaments = /^[0-9]{1,2}$/;
+const regexNumberOfTournaments = /^[0-9]{1,2}$/;
 
 

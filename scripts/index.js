@@ -1,5 +1,7 @@
 /**
- * add a class to the topnav element to make it responsive
+ * 1.0
+ * index.js
+ * This script add a class to the topnav element to make it responsive
  */
 
 function editNav() {
