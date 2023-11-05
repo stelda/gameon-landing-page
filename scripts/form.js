@@ -195,7 +195,7 @@ function handleFormSubmit(event) {
     event.preventDefault(); // Prevent the form from submitting
     const isFormValid = validateForm();
     if (isFormValid) {
-        alert("Merci ! Votre réservation a été reçue.");
+        confirmation();
     }
 }
 

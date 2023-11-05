@@ -530,3 +530,11 @@ footer {
   }
 }
 
+
+/* Confirmation Message */
+#confirmationMessage span {
+  display: block;
+  padding: 250px 0;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+}
