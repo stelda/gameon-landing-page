@@ -123,14 +123,8 @@ function hideError(element) {
 function validateForm() {
     let isValid = true;
 
-    const firstNameValue = firstName.value;
-    const lastNameValue = lastName.value;
-    const emailValue = email.value;
-    const birthdateValue = birthdate.value;
-    const quantityValue = quantity.value;
-
     // Validate first name
-    if (!isValidName(firstNameValue)) {
+    if (!isValidName(firstName.value)) {
         showError(firstName, "Veuillez entrer 2 caractères ou plus pour le champ du prénom.");
         isValid = false;
     } else {
@@ -138,7 +132,7 @@ function validateForm() {
     }
 
     // Validate last name
-    if (!isValidName(lastNameValue)) {
+    if (!isValidName(lastName.value)) {
         showError(lastName, "Veuillez entrer 2 caractères ou plus pour le champ du nom.");
         isValid = false;
     } else {
@@ -146,7 +140,7 @@ function validateForm() {
     }
 
     // Validate email
-    if (!isValidEmail(emailValue)) {
+    if (!isValidEmail(email.value)) {
         showError(email, "Veuillez entrer votre adresse email.");
         isValid = false;
     } else {
@@ -154,7 +148,7 @@ function validateForm() {
     }
 
     // Validate birthdate
-    if (!isValidBirthdate(birthdateValue)) {
+    if (!isValidBirthdate(birthdate.value)) {
         showError(birthdate, "Veuillez entrer une date de naissance valide.");
         isValid = false;
     } else {
@@ -162,7 +156,7 @@ function validateForm() {
     }
 
     // Validate tournaments
-    if (!isValidQuantity(quantityValue)) {
+    if (!isValidQuantity(quantity.value)) {
         showError(quantity, "Veuillez entrer un nombre entre 0 et 99.");
         isValid = false;
     } else {
@@ -192,10 +186,11 @@ function validateForm() {
  * @param {Event} event - The submit event.
  */
 function handleFormSubmit(event) {
-    event.preventDefault(); // Prevent the form from submitting
+    event.preventDefault(); // prevent the form from submitting
     const isFormValid = validateForm();
     if (isFormValid) {
-        confirmation();
+        confirmation(); // modal.js
+        // verification(); // uncomment for debugging purposes
     }
 }
 
@@ -203,3 +198,20 @@ function handleFormSubmit(event) {
  * 4.12 - Event listener for form submission.
  */
 form.addEventListener("submit", handleFormSubmit);
+
+// /**
+//  * Uncomment for debugging purposes
+//  * 4.13 - Function that verifies if the input values recuperated by the form are correct
+//  */
+// function verification() {
+//     const selectedLocation = document.querySelector("input[name='location']:checked");
+//     const notifications = document.querySelector("#checkbox2");
+//     console.log("firstname is " + firstName.value);
+//     console.log("name is " + lastName.value);
+//     console.log("email is " + email.value);
+//     console.log("birthdate is " + birthdate.value);
+//     console.log("number of tournaments is " + quantity.value);
+//     console.log("city of this year's tournament is " + selectedLocation.value);
+//     console.log("terms of use are accepted ? " + termsOfUse.checked);
+//     console.log("notifications accepted ? " + notifications.checked);
+// }
