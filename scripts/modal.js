@@ -8,8 +8,8 @@
 // DOM Elements
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
-const formData = document.querySelectorAll(".formData");
 const modalClose = document.querySelector(".close");
+// const formData = document.querySelectorAll(".formData");
 
 const confirmationMessage = document.querySelector("#confirmationMessage");
 const confirmationClose = document.querySelector("#confirmationClose");
